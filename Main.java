@@ -15,6 +15,12 @@ class Main {
             } else if (args[0].equals("next")) {
                 Device device = new Device("Bedroom", "192.168.0.105");
                 device.next();
+            } else if (args[0].equals("play_uri")) {
+                Device device = new Device("Bedroom", "192.168.0.105");
+                if (args.length > 1) {
+                    System.out.println(args[1]);
+                    device.playFromUri(args[1]);
+                }
             }
         }
     }

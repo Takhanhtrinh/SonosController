@@ -9,6 +9,8 @@ import java.net.http.HttpResponse.BodyHandlers;
 import java.util.Stack;
 
 class DeviceCommand {
+    static int OK = 200;
+
     static int NONE = 0;
     static int START_BUILD = 1;
     static int END_BUILD = 2;
@@ -74,7 +76,7 @@ class DeviceCommand {
         return this;
     }
 
-    public DeviceCommand excute(String url, String actionName) {
+    public boolean excute(String url, String actionName) {
         Debug.LOG("URL: " + url);
         Debug.LOG("serviceName: " + this.serviceName + " action: " + actionName);
         System.out.println(data.toString());
@@ -88,14 +90,15 @@ class DeviceCommand {
         // BodyHandlers.ofString()).thenApply(HttpResponse::body).thenAccept(System.out::print);
         try {
             HttpResponse<String> response = client.send(request, BodyHandlers.ofString());
-            System.out.println(response.statusCode());
+            if (response.statusCode() == OK) {
+                return true;
+            }
         } catch (IOException e) {
 
         } catch (InterruptedException e) {
 
         }
-
-        return this;
+        return false;
     }
 
     public DeviceCommand appendTag(String tagName, Object value) {

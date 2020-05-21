@@ -13,4 +13,9 @@ class Helper {
         return response.body();
     }
 
+    public static String encodeXML(String str) {
+        return str.replace("&", "&amp;").replace("\"", "&quot;").replace("<", "&lt;").replace(">", "&gt;")
+                .replace("^", "&circ;").replace("~", "&tilde;").replace("%", "&permil;");
+    }
+
 }
